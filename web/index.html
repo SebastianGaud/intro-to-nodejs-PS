@@ -1,0 +1,44 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- 
+        Una cartella con socket.io/socket.io.js è esposta automaticamente dal server.
+    -->
+    <script src="/socket.io/socket.io.js"></script>
+
+    <title>Socket</title>
+
+    <script type="text/javascript">
+        var socket = io();
+        function onload() {
+            socket.on('timer', function (data) {
+                document.getElementById('timer').innerHTML = data;
+            });
+        };
+
+        function submitData() {
+            var data = document.getElementById('inputdata').value;
+            console.log(data);
+            
+            socket.emit('submit', data);
+        };
+    </script>
+</head>
+
+<body onload="onload()">
+    <p>
+        Timer:
+        <span id="timer"></span>
+    </p>
+    <form action="#">
+        <p> Data
+            <input type="text" id="inputdata">
+        </p>
+        <input type="submit" value="Submit" onclick="submitData()">
+    </form>
+</body>
+
+</html>
